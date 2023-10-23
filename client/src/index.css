@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;300;400;500&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#chat-section {
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background-image: radial-gradient(#f30000 1.25px, #e5e5f7 1.25px);
+  background-size: 25px 25px;
+}
