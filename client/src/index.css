@@ -3,9 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .icon {
+    @apply cursor-pointer hover:scale-125  duration-200 flex justify-center items-center;
+  }
+  .sidebar-tooltip {
+    @apply absolute w-auto p-2 m-2 min-w-max left-16 rounded-md shadow-md scale-0 text-white bg-gray-900 text-xl font-bold transition-all duration-100 origin-left;
+  }
+}
+
 #chat-section {
   background-color: #e5e5f7;
-  opacity: 0.8;
+
   background-image: radial-gradient(#f30000 1.25px, #e5e5f7 1.25px);
   background-size: 25px 25px;
 }
