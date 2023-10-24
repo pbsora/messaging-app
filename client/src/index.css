@@ -5,16 +5,15 @@
 
 @layer components {
   .icon {
-    @apply cursor-pointer hover:scale-125  duration-200 flex justify-center items-center;
+    @apply flex justify-center duration-200 cursor-pointer hover:scale-125 place-items-center;
   }
   .sidebar-tooltip {
-    @apply absolute w-auto p-2 m-2 min-w-max left-16 rounded-md shadow-md scale-0 text-white bg-gray-900 text-xl font-bold transition-all duration-100 origin-left;
+    @apply absolute w-auto p-2 m-2 text-xl font-bold text-white transition-all duration-100 origin-left scale-0 bg-gray-900 rounded-md shadow-md min-w-max left-16;
   }
 }
 
 #chat-section {
   background-color: #e5e5f7;
-
   background-image: radial-gradient(#f30000 1.25px, #e5e5f7 1.25px);
   background-size: 25px 25px;
 }

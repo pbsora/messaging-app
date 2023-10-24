@@ -12,7 +12,7 @@ type Props = {
 const Contacts = ({ setTab, setSide, side }: Props) => {
   return (
     <>
-      <div className="h-[10vh] border-b border-zinc-400 flex justify-between  px-6 items-center  gap-3  ">
+      <div className="h-[10vh] flex justify-between  px-6 items-center gap-3">
         <div
           className={`text-2xl  icon text-zinc-500 xl:hidden ${
             side && "hidden"
@@ -26,6 +26,7 @@ const Contacts = ({ setTab, setSide, side }: Props) => {
           <AiFillPlusSquare />
         </div>
       </div>
+      <div className="w-[90%] m-auto border-b-2 border-black"></div>
       <div className="h-[90vh] overflow-y-auto ">
         <ContactItem setTab={setTab} />
         <ContactItem setTab={setTab} />

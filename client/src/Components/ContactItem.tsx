@@ -8,7 +8,7 @@ const ContactItem = ({ setTab }: Props) => {
   return (
     <div
       onClick={() => setTab("chat")}
-      className="  h-28 flex py-8  px-5 gap-3 rounded-xl hover:bg-zinc-300  duration-300"
+      className="flex gap-3 px-5 py-8 duration-300 h-28 rounded-xl hover:bg-zinc-300"
     >
       <div className="text-5xl text-zinc-500">
         <CgProfile />

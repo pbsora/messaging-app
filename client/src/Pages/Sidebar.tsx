@@ -20,7 +20,7 @@ const Sidebar = ({ setSide }: Props) => {
         >
           <GiHamburgerMenu />
         </div>
-        <div className="icon group border-b pb-5">
+        <div className="icon group border-b py-6">
           <AiFillGithub />
           <span className="sidebar-tooltip group-hover:scale-100">
             Check out my Github
