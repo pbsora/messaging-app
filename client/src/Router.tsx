@@ -6,6 +6,7 @@ import { useState } from "react";
 import Login from "./Pages/Login";
 import App from "./App";
 import { UserContext } from "./Context/UserContext";
+/* import Chat from "./Pages/Chat"; */
 
 const Routes = () => {
   const [logged, setLogged] = useState("");
@@ -18,6 +19,7 @@ const Routes = () => {
     {
       path: "/chat",
       element: <App />,
+      /*  children: [{ path: "/chat/:id", element: <Chat /> }], */
     },
   ]);
 

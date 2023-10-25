@@ -15,12 +15,12 @@ const Sidebar = ({ setSide }: Props) => {
         className="grid place-content-center  h-[10vh] mb-6 text-5xl relative"
       >
         <div
-          className=" text-2xl  icon  absolute top-5 left-5 xl:hidden"
+          className="absolute text-2xl icon top-5 left-5 xl:hidden"
           onClick={() => setSide(false)}
         >
           <GiHamburgerMenu />
         </div>
-        <div className="icon group border-b py-6">
+        <div className="py-6 border-b icon group">
           <AiFillGithub />
           <span className="sidebar-tooltip group-hover:scale-100">
             Check out my Github
@@ -30,7 +30,7 @@ const Sidebar = ({ setSide }: Props) => {
       <div className="flex flex-col justify-between  h-[87vh]">
         <div
           id="icons"
-          className=" flex flex-col justify-start items-center gap-10  flex-1  "
+          className="flex flex-col items-center justify-start flex-1 gap-10 "
         >
           <div className="icon group">
             <BsFillChatLeftFill />
@@ -51,7 +51,7 @@ const Sidebar = ({ setSide }: Props) => {
         </div>
         <div
           id="bottom-sidebar"
-          className=" grid place-content-center gap-9 pb-6"
+          className="grid pb-6 place-content-center gap-9"
         >
           <div className="icon group">
             <BsArchive />

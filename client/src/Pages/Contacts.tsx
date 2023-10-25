@@ -6,10 +6,13 @@ import { GiHamburgerMenu } from "react-icons/gi";
 type Props = {
   setTab: React.Dispatch<React.SetStateAction<string>>;
   setSide: React.Dispatch<React.SetStateAction<boolean>>;
+  setContact: React.Dispatch<React.SetStateAction<number>>;
   side: boolean;
+  users: { id: number; username: string }[];
 };
 
-const Contacts = ({ setTab, setSide, side }: Props) => {
+const Contacts = ({ setTab, setSide, side, users, setContact }: Props) => {
+  console.log;
   return (
     <>
       <div className="h-[10vh] flex justify-between  px-6 items-center gap-3">
@@ -28,8 +31,9 @@ const Contacts = ({ setTab, setSide, side }: Props) => {
       </div>
       <div className="w-[90%] m-auto border-b-2 border-black"></div>
       <div className="h-[90vh] overflow-y-auto ">
-        <ContactItem setTab={setTab} />
-        <ContactItem setTab={setTab} />
+        {users.map((user) => (
+          <ContactItem setTab={setTab} user={user} setContact={setContact} />
+        ))}
       </div>
     </>
   );
