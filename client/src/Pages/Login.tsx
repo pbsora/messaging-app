@@ -1,29 +1,21 @@
-import { UserContext } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { ILogged } from "../Context/UserContext";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import useLocalStorage from "../Hooks/useLocalStorage";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { logged, setLogged } = useContext(UserContext) as ILogged;
-  const [login, setLogin] = useState("");
+  const [user, setUser] = useLocalStorage("user");
 
-  useEffect(() => {
-    if (logged) navigate("/chat");
-  }, [logged, navigate]);
+  const [login, setLogin] = useState("");
 
   const formLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLogged(login);
+    setUser(login);
     navigate("/chat");
   };
 
   return (
-    <motion.div
-      className="flex items-center justify-center w-screen h-screen bg-gradient-to-r from-gray-700 via-gray-900 to-black"
-      exit={{ x: 5000, opacity: 0, transition: { duration: 0.7 } }}
-    >
+    <div className="flex items-center justify-center w-screen h-screen bg-gradient-to-r from-gray-700 via-gray-900 to-black">
       <form
         action=""
         className="w-1/4 border border-black h-[40vh] bg-zinc-200 flex flex-col items-center gap-6 "
@@ -46,7 +38,7 @@ const Login = () => {
           Login
         </button>
       </form>
-    </motion.div>
+    </div>
   );
 };
 export default Login;

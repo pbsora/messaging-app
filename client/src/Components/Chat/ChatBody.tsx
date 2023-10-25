@@ -1,27 +1,25 @@
 import MessageItem from "../MessageItem";
+import { newMessage } from "../Messages/NewMessage";
 
-/* type Props = {}; */
-const ChatBody = (/* props: Props */) => {
+type Props = {
+  messageList: {
+    author: string;
+    date: number;
+    message: string;
+    messageId: string;
+    name: string;
+  }[];
+};
+
+const ChatBody = ({ messageList }: Props) => {
+  console.log(messageList);
   return (
-    <div className=" h-[79vh] flex flex-col-reverse overflow-y-auto">
-      <MessageItem
-        message={{
-          content:
-            "    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit corporis mollitia neque beatae saepe reiciendis labore voluptates molestiae a aut repudiandae veritatis distinctio hic, dolore omnis harum! Natus, dicta officiis?          ",
-          author: "Sora",
-          date: Date.now(),
-          type: 1,
-        }}
-      />
-      <MessageItem
-        message={{
-          content: "Teste",
-          author: "Sora",
-          date: Date.now(),
-          type: 0,
-        }}
-      />
+    <div className=" h-[79vh] flex flex-col overflow-y-auto">
+      {messageList.map((message) => (
+        <MessageItem message={newMessage(message)} />
+      ))}
     </div>
   );
 };
+
 export default ChatBody;

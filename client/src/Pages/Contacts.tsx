@@ -29,7 +29,7 @@ const Contacts = ({ setTab, setSide, side, users, setContact }: Props) => {
           <AiFillPlusSquare />
         </div>
       </div>
-      <div className="w-[90%] m-auto border-b-2 border-black"></div>
+      <hr className="w-[90%] m-auto border-b-2 border-black"></hr>
       <div className="h-[90vh] overflow-y-auto ">
         {users.map((user) => (
           <div key={user.id}>

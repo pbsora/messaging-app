@@ -14,9 +14,9 @@ const io = require("socket.io")(http, {
 io.on("connection", (socket) => {
   console.log(`${socket.id} user just connected!`);
   socket.on("disconnect", () => {
-    console.log("A user just disconnected");
+    console.log(`${socket.id} just disconnected`);
   });
-  socket.on("send-message", (data) => {
+  socket.on("message", (data) => {
     socket.broadcast.emit("chat-message", data);
   });
   /* socket.emit("chat-message", "Hello mom"); */

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { socket } from "../Config/socket";
 
 import Contacts from "./Contacts";
 import Sidebar from "./Sidebar";
@@ -19,6 +20,8 @@ const users = [
   },
 ];
 
+socket.connect();
+
 function App() {
   const [tab, setTab] = useState("contacts");
   const [side, setSide] = useState(false);
@@ -31,14 +34,8 @@ function App() {
 
   return (
     <div className="relative overflow-hidden md:grid md:grid-cols-20">
-      <div
-        id="sidebar"
-        className={`col-span-1 bg-zinc-900  ${
-          side ? "absolute" : "hidden"
-        } xl:relative  xl:block text-white text-2xl w-full md:w-[30vw] lg:w-[25vw] xl:w-full h`}
-      >
-        <Sidebar setSide={setSide} />
-      </div>
+      <Sidebar setSide={setSide} side={side} />
+
       <div
         className={`  flex flex-col col-span-8 lg:col-span-5 md:col-span-6 bg-zinc-100 ${
           tab === "chat" && "hidden md:block"
@@ -52,13 +49,8 @@ function App() {
           setContact={setSelectedContact}
         />
       </div>
-      <div
-        className={` max-h-[99vh]  lg:col-span-15 col-span-12 xl:col-span-14 md:col-span-14 ${
-          tab === "contacts" && "hidden md:block"
-        }   `}
-      >
-        <Chat setTab={setTab} selectedChat={users[selectedContact]} />
-      </div>
+
+      <Chat setTab={setTab} selectedChat={users[selectedContact]} tab={tab} />
     </div>
   );
 }
