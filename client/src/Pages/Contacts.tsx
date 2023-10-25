@@ -1,5 +1,5 @@
 import React from "react";
-import ContactItem from "../Components/ContactItem";
+import ContactItem from "../Components/Contact/ContactItem";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 
@@ -32,7 +32,9 @@ const Contacts = ({ setTab, setSide, side, users, setContact }: Props) => {
       <div className="w-[90%] m-auto border-b-2 border-black"></div>
       <div className="h-[90vh] overflow-y-auto ">
         {users.map((user) => (
-          <ContactItem setTab={setTab} user={user} setContact={setContact} />
+          <div key={user.id}>
+            <ContactItem setTab={setTab} user={user} setContact={setContact} />
+          </div>
         ))}
       </div>
     </>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import Contacts from "./Pages/Contacts";
-import Sidebar from "./Pages/Sidebar";
-import Chat from "./Pages/Chat";
+import Contacts from "./Contacts";
+import Sidebar from "./Sidebar";
+import Chat from "./Chat";
 
 const users = [
   {
@@ -23,8 +23,6 @@ function App() {
   const [tab, setTab] = useState("contacts");
   const [side, setSide] = useState(false);
   const [selectedContact, setSelectedContact] = useState(0);
-
-  console.log(selectedContact);
 
   /* const teste = users.find((obj) => {
     return obj.username === "Pedro";

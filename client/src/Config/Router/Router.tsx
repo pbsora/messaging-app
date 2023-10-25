@@ -3,9 +3,9 @@ import { cloneElement } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
-import Login from "./Pages/Login";
-import App from "./App";
-import { UserContext } from "./Context/UserContext";
+import Login from "../../Pages/Login";
+import App from "../../Pages/App";
+import { UserContext } from "../../Context/UserContext";
 /* import Chat from "./Pages/Chat"; */
 
 const Routes = () => {

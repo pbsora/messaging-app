@@ -6,7 +6,8 @@ const ChatBody = (/* props: Props */) => {
     <div className=" h-[79vh] flex flex-col-reverse overflow-y-auto">
       <MessageItem
         message={{
-          content: "Teste",
+          content:
+            "    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit corporis mollitia neque beatae saepe reiciendis labore voluptates molestiae a aut repudiandae veritatis distinctio hic, dolore omnis harum! Natus, dicta officiis?          ",
           author: "Sora",
           date: Date.now(),
           type: 1,

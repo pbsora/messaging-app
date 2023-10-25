@@ -3,7 +3,7 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { socket } from "../Config/socket";
 import ChatBody from "../Components/Chat/ChatBody";
-import ChatFooter from "../Components/ChatFooter";
+import ChatFooter from "../Components/Chat/ChatFooter";
 
 type Props = {
   setTab: React.Dispatch<React.SetStateAction<string>>;
@@ -15,9 +15,6 @@ const Chat = ({ setTab, selectedChat }: Props) => {
   const [messageList, setMessageList] = useState<string[]>([]);
 
   const { username } = selectedChat;
-  const formattedName = username
-    ? username[0].toUpperCase() + username?.slice(1)
-    : "";
 
   const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,12 +35,15 @@ const Chat = ({ setTab, selectedChat }: Props) => {
 
   return (
     <>
+      {/* TODO: Turn header into component */}
       <div className="h-[10vh] border-b border-l border-zinc-400 flex text-4xl items-center gap-6 pl-6">
         <div className="block md:hidden" onClick={() => setTab("contacts")}>
           <AiOutlineArrowLeft />
         </div>
         <CgProfile />
-        <span className="text-2xl font-light">{formattedName}</span>
+        <span className="text-2xl font-light">
+          {username ? username[0].toUpperCase() + username?.slice(1) : ""}
+        </span>
       </div>
       <form
         className="h-[90vh] overflow-y-auto relative "
