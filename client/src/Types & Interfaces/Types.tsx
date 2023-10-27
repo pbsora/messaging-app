@@ -4,6 +4,7 @@ export type Message = {
   message: string;
   messageId: string;
   name: string;
+  to: string;
 };
 
 export type messageList = {
@@ -17,4 +18,10 @@ export type messageList = {
 export type activeUsers = {
   username: string;
   socketId: string;
+  userID: string;
+};
+
+export type selectedUser = {
+  userID: string;
+  username: string;
 };

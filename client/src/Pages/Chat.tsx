@@ -6,34 +6,36 @@ import ChatFooter from "../Components/Chat/ChatFooter";
 import ChatHeader from "../Components/Chat/ChatHeader";
 import useLocalStorage from "../Hooks/useLocalStorage";
 
-import { Message, activeUsers } from "../Types & Interfaces/Types";
+import { Message, selectedUser } from "../Types & Interfaces/Types";
 
 type Props = {
   setTab: React.Dispatch<React.SetStateAction<string>>;
-  selectedChat?: activeUsers;
+  selectedUser: selectedUser;
   tab: string;
 };
 
-const Chat = ({ setTab, selectedChat, tab }: Props) => {
+const Chat = ({ setTab, selectedUser, tab }: Props) => {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState<Message[]>([]);
 
   const [user] = useLocalStorage("user");
+  const { userID } = selectedUser;
 
   const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const newMessage = {
       message,
       name: user,
       messageId: `${socket.id}${Math.random()}`,
       author: socket.id,
+      to: userID,
       date: Date.now(),
     };
 
     if (!message.trim() || !user) return;
 
-    socket.emit("message", newMessage);
+    socket.emit("private message", { content: newMessage, to: userID });
+    handleNewMessage(newMessage);
     setMessage("");
   };
 
@@ -44,13 +46,9 @@ const Chat = ({ setTab, selectedChat, tab }: Props) => {
     setMessageList(newList);
   };
 
-  socket.on("chat-message", (data) => {
-    handleNewMessage(data);
+  socket.on("private message", ({ content }) => {
+    handleNewMessage(content);
   });
-
-  /*  useEffect(() => {
-    console.log(messageList);
-  }, [messageList]); */
 
   return (
     <>
@@ -59,13 +57,13 @@ const Chat = ({ setTab, selectedChat, tab }: Props) => {
           tab === "contacts" && "hidden md:block"
         }`}
       >
-        <ChatHeader setTab={setTab} username={selectedChat?.username} />
+        <ChatHeader setTab={setTab} selectedUser={selectedUser} />
         <form
           className="h-[90vh] overflow-y-auto relative "
           id="chat-section"
           onSubmit={handleSendMessage}
         >
-          <ChatBody messageList={messageList} />
+          <ChatBody messageList={messageList} selectedUser={selectedUser} />
           <ChatFooter setMessage={setMessage} message={message} />
         </form>
       </div>

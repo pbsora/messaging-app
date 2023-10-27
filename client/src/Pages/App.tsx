@@ -9,8 +9,9 @@ import { activeUsers } from "../Types & Interfaces/Types";
 /* import NoContacts from "../Components/Chat/NoContacts"; */
 import useLocalStorage from "../Hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
+import NoContacts from "../Components/Chat/NoContacts";
 
-const testuser: activeUsers = { username: "Sora", socketId: "asfdadfsdf" };
+/* const testuser: activeUsers = { username: "Sora", socketId: "asfdadfsdf" }; */
 
 function App() {
   const [tab, setTab] = useState("contacts");
@@ -31,20 +32,15 @@ function App() {
     socket.connect();
 
     //Get users that are online and filter myself out
-    /* socket.on("newUserResponse", (data) =>
+    socket.on("users", (data) =>
       setActiveUsers(
         data.filter((username: activeUsers) => username.username !== user)
       )
-    ); */
+    );
 
-    socket.on("users", (data) => setActiveUsers(data));
+    /*  socket.on("users", (data) => setActiveUsers(data)); */
     if (!activeUsers[0]) setTab("contacts");
   }, [activeUsers, user, navigate]);
-
-  /* const teste = users.find((obj) => {
-    return obj.username === "Pedro";
-  });
- */
 
   return (
     <div className="relative overflow-hidden md:grid md:grid-cols-20">
@@ -64,16 +60,16 @@ function App() {
         />
       </div>
 
-      <Chat setTab={setTab} selectedChat={testuser} tab={tab} />
-      {/*  {activeUsers[0] ? (
+      {/*  <Chat setTab={setTab} selectedChat={testuser} tab={tab} /> */}
+      {activeUsers[0] ? (
         <Chat
           setTab={setTab}
-          selectedChat={activeUsers[selectedContact]}
+          selectedUser={activeUsers[selectedContact]}
           tab={tab}
         />
       ) : (
         <NoContacts />
-      )} */}
+      )}
     </div>
   );
 }

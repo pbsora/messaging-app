@@ -35,6 +35,13 @@ io.on("connection", (socket) => {
     });
   }
   io.emit("users", users);
+
+  socket.on("private message", ({ content, to }) => {
+    socket.to(to).emit("private message", {
+      content,
+      from: socket.id,
+    });
+  });
   /* socket.on("newUser", (data) => {
     users.push(data);
     console.log(users);

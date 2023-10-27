@@ -1,14 +1,17 @@
 import useLocalStorage from "../../Hooks/useLocalStorage";
+import { selectedUser } from "../../Types & Interfaces/Types";
 import MessageItem from "../Messages/MessageItem";
 import { newMessage } from "../Messages/NewMessage";
 
 type Props = {
+  selectedUser: selectedUser;
   messageList: {
     author: string;
     date: number;
     message: string;
     messageId: string;
     name: string;
+    to: string;
   }[];
 };
 

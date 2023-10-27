@@ -7,5 +7,6 @@ export const newMessage = (message: Message) => {
     author: message.author,
     date: message.date,
     messageId: message.messageId,
+    to: message.to,
   };
 };
