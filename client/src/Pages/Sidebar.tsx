@@ -2,6 +2,10 @@ import { BsFillChatLeftFill, BsArchive } from "react-icons/bs";
 import { GiHamburgerMenu, GiPlagueDoctorProfile } from "react-icons/gi";
 import { AiFillStar, AiOutlinePhone, AiFillGithub } from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
+import { BiLogOut } from "react-icons/bi";
+
+import { useNavigate } from "react-router-dom";
+import { socket } from "../Config/socket";
 
 type Props = {
   setSide: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,6 +13,14 @@ type Props = {
 };
 
 const Sidebar = ({ setSide, side }: Props) => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    socket.disconnect();
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <>
       <div
@@ -78,6 +90,12 @@ const Sidebar = ({ setSide, side }: Props) => {
               <GiPlagueDoctorProfile />
               <span className="sidebar-tooltip group-hover:scale-100">
                 Profile
+              </span>
+            </div>
+            <div className="icon group" onClick={handleLogout}>
+              <BiLogOut />
+              <span className="sidebar-tooltip group-hover:scale-100">
+                Log-out
               </span>
             </div>
           </div>

@@ -10,6 +10,7 @@ const ChatFooter = ({ setMessage, message }: Props) => {
       <input
         type="text"
         value={message}
+        placeholder="Message..."
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setMessage(e.target.value)
         }

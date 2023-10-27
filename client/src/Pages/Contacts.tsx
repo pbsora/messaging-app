@@ -3,16 +3,23 @@ import ContactItem from "../Components/Contact/ContactItem";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 
+import { activeUsers } from "../Types & Interfaces/Types";
+
 type Props = {
   setTab: React.Dispatch<React.SetStateAction<string>>;
   setSide: React.Dispatch<React.SetStateAction<boolean>>;
   setContact: React.Dispatch<React.SetStateAction<number>>;
+  activeUsers: activeUsers[];
   side: boolean;
-  users: { id: number; username: string }[];
 };
 
-const Contacts = ({ setTab, setSide, side, users, setContact }: Props) => {
-  console.log;
+const Contacts = ({
+  setTab,
+  setSide,
+  side,
+  setContact,
+  activeUsers,
+}: Props) => {
   return (
     <>
       <div className="h-[10vh] flex justify-between  px-6 items-center gap-3">
@@ -31,9 +38,14 @@ const Contacts = ({ setTab, setSide, side, users, setContact }: Props) => {
       </div>
       <hr className="w-[90%] m-auto border-b-2 border-black"></hr>
       <div className="h-[90vh] overflow-y-auto ">
-        {users.map((user) => (
-          <div key={user.id}>
-            <ContactItem setTab={setTab} user={user} setContact={setContact} />
+        {activeUsers.map((user, index) => (
+          <div key={user.socketId}>
+            <ContactItem
+              setTab={setTab}
+              user={user}
+              index={index}
+              setContact={setContact}
+            />
           </div>
         ))}
       </div>

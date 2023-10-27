@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 
 type Props = {
   setTab: React.Dispatch<React.SetStateAction<string>>;
-  username: string;
+  username?: string;
 };
 const ChatHeader = ({ setTab, username }: Props) => {
   return (
@@ -12,9 +12,7 @@ const ChatHeader = ({ setTab, username }: Props) => {
         <AiOutlineArrowLeft />
       </div>
       <CgProfile />
-      <span className="text-2xl font-light">
-        {username ? username[0].toUpperCase() + username?.slice(1) : ""}
-      </span>
+      <span className="text-2xl font-light">{username || ""}</span>
     </div>
   );
 };

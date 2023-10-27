@@ -1,37 +1,30 @@
-import { useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
-import { useParams } from "react-router-dom";
+import { activeUsers } from "../../Types & Interfaces/Types";
 
 type Props = {
   setTab: React.Dispatch<React.SetStateAction<string>>;
-  user: { id: number; username: string };
   setContact: React.Dispatch<React.SetStateAction<number>>;
+  index: number;
+  user: activeUsers;
 };
 
-const ContactItem = ({ setTab, user, setContact }: Props) => {
-  const url = useParams();
-
-  useEffect(() => {
-    if (!Object.keys(url).length) setTab("contact");
-    else setTab("chat");
-  }, [url, setTab]);
-
+const ContactItem = ({ setTab, user, index, setContact }: Props) => {
   return (
     <div
       className="flex gap-3 px-5 py-8 duration-300 h-28 rounded-xl hover:bg-zinc-300"
       onClick={() => {
         setTab("chat");
-        {
-          setContact(user.id);
-        }
+        setContact(index);
       }}
     >
       <div className="text-5xl text-zinc-500">
         <CgProfile />
       </div>
       <div className="select-none">
-        <div>{user.username}</div>
-        <div>Contact@email {user.id}</div>
+        <div>
+          {user.username} {index}
+        </div>
+        <div>Contact@email {user.socketId}</div>
       </div>
     </div>
   );

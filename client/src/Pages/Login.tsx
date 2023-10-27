@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useLocalStorage from "../Hooks/useLocalStorage";
+import { socket } from "../Config/socket";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -8,9 +9,10 @@ const Login = () => {
 
   const [login, setLogin] = useState("");
 
-  const formLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setUser(login);
+    /* socket.emit("newUser", { username: login, socketId: socket.id }); */
     navigate("/chat");
   };
 
@@ -19,7 +21,7 @@ const Login = () => {
       <form
         action=""
         className="w-1/4 border border-black h-[40vh] bg-zinc-200 flex flex-col items-center gap-6 "
-        onSubmit={formLogin}
+        onSubmit={handleSubmit}
       >
         <div className="w-full mt-3 text-center ">
           <label htmlFor="username" className="block text-2xl font-roboto">
