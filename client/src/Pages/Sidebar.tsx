@@ -5,7 +5,7 @@ import { FiSettings } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 
 import { useNavigate } from "react-router-dom";
-import { socket } from "../Config/socket";
+/* import { socket } from "../Config/socket"; */
 
 type Props = {
   setSide: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,8 +16,8 @@ const Sidebar = ({ setSide, side }: Props) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("user");
-    socket.disconnect();
     navigate("/");
+    /* socket.disconnect(); */
     window.location.reload();
   };
 

@@ -11,7 +11,7 @@ const ChatHeader = ({ setTab, selectedUser }: Props) => {
 
   return (
     <div className="h-[10vh] border-b border-l border-zinc-400 flex text-4xl items-center gap-6 pl-6">
-      <div className="block md:hidden" onClick={() => setTab("contacts")}>
+      <div className="block " onClick={() => setTab("contacts")}>
         <AiOutlineArrowLeft />
       </div>
       <CgProfile />

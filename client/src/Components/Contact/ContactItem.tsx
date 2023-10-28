@@ -24,7 +24,7 @@ const ContactItem = ({ setTab, user, index, setContact }: Props) => {
         <div>
           {user.username} {index}
         </div>
-        <div>Contact@email {user.socketId}</div>
+        <div>{user.userID}</div>
       </div>
     </div>
   );

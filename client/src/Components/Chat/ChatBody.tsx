@@ -1,10 +1,10 @@
 import useLocalStorage from "../../Hooks/useLocalStorage";
-import { selectedUser } from "../../Types & Interfaces/Types";
+
 import MessageItem from "../Messages/MessageItem";
 import { newMessage } from "../Messages/NewMessage";
 
 type Props = {
-  selectedUser: selectedUser;
+  lastMessageRef: React.MutableRefObject<HTMLDivElement | null>;
   messageList: {
     author: string;
     date: number;
@@ -15,7 +15,7 @@ type Props = {
   }[];
 };
 
-const ChatBody = ({ messageList }: Props) => {
+const ChatBody = ({ messageList, lastMessageRef }: Props) => {
   const [user] = useLocalStorage("user");
 
   return (
@@ -30,6 +30,7 @@ const ChatBody = ({ messageList }: Props) => {
           }`}
         >
           <MessageItem message={newMessage(message)} />
+          <div ref={lastMessageRef} />
         </div>
       ))}
     </div>

@@ -18,7 +18,7 @@ const ChatFooter = ({ setMessage, message }: Props) => {
       />
       <button
         id="send"
-        className="grid p-5 mr-2 text-3xl text-white duration-200 bg-green-500 rounded-full place-content-center hover:scale-125"
+        className="grid p-3 mr-2 text-3xl text-white duration-200 bg-green-500 rounded-full place-content-center hover:scale-125"
       >
         <AiOutlineSend />
       </button>

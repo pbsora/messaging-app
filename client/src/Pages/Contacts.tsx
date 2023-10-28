@@ -4,8 +4,10 @@ import { AiFillPlusSquare } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 import { activeUsers } from "../Types & Interfaces/Types";
+import CurrentUser from "../Components/Contact/CurrentUser";
 
 type Props = {
+  tab: string;
   setTab: React.Dispatch<React.SetStateAction<string>>;
   setSide: React.Dispatch<React.SetStateAction<boolean>>;
   setContact: React.Dispatch<React.SetStateAction<number>>;
@@ -14,6 +16,7 @@ type Props = {
 };
 
 const Contacts = ({
+  tab,
   setTab,
   setSide,
   side,
@@ -37,9 +40,9 @@ const Contacts = ({
         </div>
       </div>
       <hr className="w-[90%] m-auto border-b-2 border-black"></hr>
-      <div className="h-[90vh] overflow-y-auto ">
+      <div className="h-[90vh] overflow-y-auto flex-1 ">
         {activeUsers.map((user, index) => (
-          <div key={user.socketId}>
+          <div key={user.userID}>
             <ContactItem
               setTab={setTab}
               user={user}
@@ -48,6 +51,14 @@ const Contacts = ({
             />
           </div>
         ))}
+      </div>
+      <div
+        id="contact-footer"
+        className={`flex items-center gap-4 p-5 text-4xl border-t ${
+          tab === "chat" && "hidden"
+        }`}
+      >
+        <CurrentUser />
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { socket } from "../Config/socket";
 import ChatBody from "../Components/Chat/ChatBody";
@@ -17,6 +17,7 @@ type Props = {
 const Chat = ({ setTab, selectedUser, tab }: Props) => {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState<Message[]>([]);
+  const lastMessageRef = useRef<HTMLDivElement | null>(null);
 
   const [user] = useLocalStorage("user");
   const { userID } = selectedUser;
@@ -46,9 +47,16 @@ const Chat = ({ setTab, selectedUser, tab }: Props) => {
     setMessageList(newList);
   };
 
-  socket.on("private message", ({ content }) => {
-    handleNewMessage(content);
+  socket.on("private message", ({ content, from }) => {
+    if (userID === from) {
+      handleNewMessage(content);
+    }
+    /* console.log(content); */
   });
+
+  useEffect(() => {
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messageList]);
 
   return (
     <>
@@ -63,7 +71,7 @@ const Chat = ({ setTab, selectedUser, tab }: Props) => {
           id="chat-section"
           onSubmit={handleSendMessage}
         >
-          <ChatBody messageList={messageList} selectedUser={selectedUser} />
+          <ChatBody messageList={messageList} lastMessageRef={lastMessageRef} />
           <ChatFooter setMessage={setMessage} message={message} />
         </form>
       </div>

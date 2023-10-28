@@ -22,7 +22,7 @@ io.use((socket, next) => {
 });
 
 io.on("connection", (socket) => {
-  const users = [];
+  let users = [];
   console.log(`${socket.id} user just connected!`);
   socket.on("message", (data) => {
     io.emit("chat-message", data);
@@ -35,6 +35,7 @@ io.on("connection", (socket) => {
     });
   }
   io.emit("users", users);
+  console.log(users);
 
   socket.on("private message", ({ content, to }) => {
     socket.to(to).emit("private message", {
@@ -42,17 +43,12 @@ io.on("connection", (socket) => {
       from: socket.id,
     });
   });
-  /* socket.on("newUser", (data) => {
-    users.push(data);
-    console.log(users);
-    io.emit("newUserResponse", users);
-  }); */
 
   socket.on("disconnect", () => {
-    console.log(`${socket.id} just disconnected`);
     console.log(users);
-    /* users = users.filter((user) => user.socketId !== socket.id);
-    io.emit("newUserResponse", users); */
+    console.log(`${socket.username} just disconnected`);
+    users = users.filter((user) => user.username !== socket.username);
+    io.emit("users", users);
     socket.disconnect();
   });
 

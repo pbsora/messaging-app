@@ -12,7 +12,6 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setUser(login);
-    /* socket.emit("newUser", { username: login, socketId: socket.id }); */
     navigate("/chat");
   };
 

@@ -23,7 +23,6 @@ function App() {
 
   useEffect(() => {
     if (!user) {
-      localStorage.removeItem("user");
       socket.disconnect();
       navigate("/");
       window.location.reload();
@@ -32,13 +31,11 @@ function App() {
     socket.connect();
 
     //Get users that are online and filter myself out
-    socket.on("users", (data) =>
-      setActiveUsers(
+    socket.on("users", (data) => {
+      return setActiveUsers(
         data.filter((username: activeUsers) => username.username !== user)
-      )
-    );
-
-    /*  socket.on("users", (data) => setActiveUsers(data)); */
+      );
+    });
     if (!activeUsers[0]) setTab("contacts");
   }, [activeUsers, user, navigate]);
 
@@ -53,6 +50,7 @@ function App() {
       >
         <Contacts
           activeUsers={activeUsers}
+          tab={tab}
           setTab={setTab}
           setSide={setSide}
           side={side}
