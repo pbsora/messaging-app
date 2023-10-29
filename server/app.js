@@ -2,13 +2,23 @@ const express = require("express");
 const app = express();
 const http = require("http").Server(app);
 const cors = require("cors");
-
-app.use(cors);
-
+const bcrypt = require("bcryptjs");
 const io = require("socket.io")(http, {
   cors: {
     origin: "http://localhost:5173",
   },
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+require("dotenv").config();
+const mongoose = require("mongoose");
+mongoose.connect(process.env.DB_URL).catch((err) => console.log(err));
+
+app.get("/a", (req, res) => {
+  res.send("deu");
+  console.log("deu");
 });
 
 io.use((socket, next) => {
@@ -51,8 +61,6 @@ io.on("connection", (socket) => {
     io.emit("users", users);
     socket.disconnect();
   });
-
-  /* socket.emit("chat-message", "Hello mom"); */
 });
 
 http.listen(3000, () => {
