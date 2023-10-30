@@ -1,24 +1,36 @@
 const express = require("express");
 const app = express();
 const http = require("http").Server(app);
-const cors = require("cors");
 const bcrypt = require("bcryptjs");
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "http://localhost:5173",
-  },
-});
+const passport = require("passport");
+const passportLocal = require("passport-local");
+const session = require("express-session");
+const cors = require("cors");
+
+const User = require("./Routes/user");
+
+require("./config/passport")(passport);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  session({
+    secret: "pug",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DB_URL).catch((err) => console.log(err));
 
-app.get("/a", (req, res) => {
-  res.send("deu");
-  console.log("deu");
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:5173",
+  },
 });
 
 io.use((socket, next) => {
@@ -30,6 +42,17 @@ io.use((socket, next) => {
   socket.username = username;
   next();
 });
+
+app.use(
+  "/api/",
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+
+app.use("/api", User);
+//-------------End of middleware-------------------/
 
 io.on("connection", (socket) => {
   let users = [];
@@ -61,6 +84,11 @@ io.on("connection", (socket) => {
     io.emit("users", users);
     socket.disconnect();
   });
+});
+
+app.get("/a", (req, res) => {
+  res.send("deu");
+  console.log("deu");
 });
 
 http.listen(3000, () => {

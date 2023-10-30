@@ -1,45 +1,41 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import useLocalStorage from "../Hooks/useLocalStorage";
-import { socket } from "../Config/socket";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import UserLogin from "../Components/Login & Register/UserLogin";
+import UserRegister from "../Components/Login & Register/UserRegister";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [user, setUser] = useLocalStorage("user");
+  const [option, setOption] = useState<string>("log-in");
+  const [parent] = useAutoAnimate();
 
-  const [login, setLogin] = useState("");
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setUser(login);
-    navigate("/chat");
+  const changeOption = (newOption: string) => {
+    setOption(newOption);
   };
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen bg-gradient-to-r from-gray-700 via-gray-900 to-black">
-      <form
-        action=""
-        className="w-1/4 border border-black h-[40vh] bg-zinc-200 flex flex-col items-center gap-6 "
-        onSubmit={handleSubmit}
-      >
-        <div className="w-full mt-3 text-center ">
-          <label htmlFor="username" className="block text-2xl font-roboto">
-            Username
-          </label>
-          <input
-            type="text"
-            className="w-3/4 p-2 border-2 border-black rounded-xl"
-            value={login}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setLogin(e.target.value)
-            }
-          />
+    <>
+      <div className="flex flex-col" ref={parent}>
+        <div className="flex items-center justify-center gap-3 mt-5 text-center text-white font-roboto">
+          <p
+            className={`mr-6 cursor-pointer ${
+              option === "log-in" && "border-b border-white"
+            }`}
+            onClick={() => changeOption("log-in")}
+          >
+            Login
+          </p>
+          <p
+            className={`mr-6 cursor-pointer ${
+              option === "sign-up" && "border-b border-white"
+            }`}
+            onClick={() => changeOption("sign-up")}
+          >
+            Sign-up
+          </p>
         </div>
-        <button className="px-6 py-3 text-white bg-black border border-white rounded-xl">
-          Login
-        </button>
-      </form>
-    </div>
+        {option === "log-in" ? <UserLogin /> : <UserRegister />}
+      </div>
+    </>
   );
 };
 export default Login;
