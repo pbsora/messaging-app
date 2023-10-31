@@ -20,7 +20,7 @@ router.post(
           console.log(err);
           return next(err);
         }
-        res.send("Successfully Authenticaded");
+        res.send("Successfully Authenticated");
       });
     })(req, res, next);
   }
@@ -41,7 +41,6 @@ router.post(
     try {
       const { username, firstName, lastName } = req.body;
       const userExists = await User.findOne({ username });
-      console.log(userExists);
       if (userExists) return res.send({ error: "User already exists" });
       const password = await bcrypt.hash(req.body.password, 10);
       const newUser = new User({
@@ -57,5 +56,11 @@ router.post(
     }
   }
 );
+
+router.get("/auth", (req, res) => {
+  res.send(req.isAuthenticated());
+  console.log(!!req.user);
+  console.log(!!req.session.passport);
+});
 
 module.exports = router;

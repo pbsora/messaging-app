@@ -38,9 +38,10 @@ const UserLogin = () => {
     if (data.error) {
       setError(true);
       setErrorMsg(data.error);
+      return;
     }
-    /* setUser(login.username);
-    navigate("/chat"); */
+    setUser(login.username);
+    navigate("/chat");
   };
 
   return (

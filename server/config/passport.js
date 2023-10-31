@@ -19,16 +19,16 @@ module.exports = function (passport) {
     })
   );
 
-  passport.serializeUser((user, cb) => {
-    cb(null, user.id);
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
   });
 
-  passport.deserializeUser(async (id, cb) => {
+  passport.deserializeUser(async (id, done) => {
     try {
       const user = await User.findById(id);
-      cb(null, user);
+      done(null, user);
     } catch (error) {
-      cb(err);
+      done(err);
     }
   });
 };
