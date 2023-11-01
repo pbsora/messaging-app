@@ -59,8 +59,14 @@ router.post(
 
 router.get("/auth", (req, res) => {
   res.send(req.isAuthenticated());
-  console.log(!!req.user);
-  console.log(!!req.session.passport);
+});
+
+router.get("/log-out", (req, res, next) => {
+  req.logOut((err) => {
+    if (err) return next(err);
+    console.log(req.isAuthenticated());
+    res.send({ msg: "Logged out" });
+  });
 });
 
 module.exports = router;

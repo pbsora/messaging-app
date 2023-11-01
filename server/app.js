@@ -34,6 +34,8 @@ const io = require("socket.io")(http, {
 });
 
 io.use((socket, next) => {
+  const sessionID = socket.handshake.auth.sessionID;
+
   const username = socket.handshake.auth.username;
 
   if (!username) {

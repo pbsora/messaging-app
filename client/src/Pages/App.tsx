@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { socket } from "../Config/socket";
+import axios from "axios";
 
 import Contacts from "./Contacts";
 import Sidebar from "./Sidebar";
@@ -22,11 +23,17 @@ function App() {
   const [user] = useLocalStorage("user");
 
   useEffect(() => {
-    if (!user) {
-      socket.disconnect();
-      navigate("/");
-      window.location.reload();
-    }
+    const auth = async () => {
+      const { data } = await axios.get("/auth", { withCredentials: true });
+      if (!data) {
+        localStorage.removeItem("user");
+        socket.disconnect();
+        navigate("/");
+        window.location.reload();
+      }
+    };
+    auth();
+    console.log(socket.id);
     socket.auth = { username: user };
     socket.connect();
 

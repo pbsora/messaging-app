@@ -5,6 +5,7 @@ import { FiSettings } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 /* import { socket } from "../Config/socket"; */
 
 type Props = {
@@ -14,10 +15,10 @@ type Props = {
 
 const Sidebar = ({ setSide, side }: Props) => {
   const navigate = useNavigate();
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await axios.get("/log-out", { withCredentials: true });
     localStorage.removeItem("user");
     navigate("/");
-    /* socket.disconnect(); */
     window.location.reload();
   };
 
